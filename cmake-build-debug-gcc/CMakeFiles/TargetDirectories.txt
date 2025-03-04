@@ -1,0 +1,3 @@
+C:/Users/lukas/CLionProjects/info2/cmake-build-debug-gcc/CMakeFiles/info2.dir
+C:/Users/lukas/CLionProjects/info2/cmake-build-debug-gcc/CMakeFiles/edit_cache.dir
+C:/Users/lukas/CLionProjects/info2/cmake-build-debug-gcc/CMakeFiles/rebuild_cache.dir
