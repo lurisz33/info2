@@ -2,11 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-/* Functions already implemented */
 struct month *init_months(struct month *head);
 void free_months(struct month *head);
 
-/* given month struct */
 struct month {
     int month_number;
     char *month_name;
@@ -89,16 +87,13 @@ struct month *selection_sort(struct month *head) {
 }
 
 int main(int argc, char *argv[]) {
-    /* Init month linked list */
     struct month *head;
     head = init_months(head);
 
-    /* Print the linked list as it is after initialization */
     print_months(head);
 
     printf("\n\nTesting get_previous_month:\n");
 
-    // Try to get second month in the list
     if (head && head->next) {
         struct month *second = head->next;
         struct month *prev = get_previous_month(head, second);
@@ -109,7 +104,6 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // Try to get previous of head (should be NULL)
     struct month *test_null = get_previous_month(head, head);
     if (!test_null) {
         printf("Correctly returned NULL for previous of head.\n");
@@ -117,7 +111,6 @@ int main(int argc, char *argv[]) {
         printf("Error: Should have returned NULL for previous of head.\n");
     }
 
-    // Try to get previous of a deeper node
     struct month *cur = head;
     for (int i = 0; i < 4 && cur; i++) cur = cur->next;
     if (cur) {
@@ -145,7 +138,6 @@ int main(int argc, char *argv[]) {
         print_months(head);
     }
 
-    /* TODO: Task 2.4: Goal is to implement the selection sort algorithm */
     printf("\n");
     printf("Unsorted list is: \n");
     print_months(head);
@@ -154,7 +146,6 @@ int main(int argc, char *argv[]) {
     printf("Sorted list is: \n");
     print_months(head);
 
-    /* Cleanup */
     
     free_months(head);
     return 0;
@@ -167,41 +158,37 @@ struct month *init_months(struct month *head) {
                              "May",       "June",     "July",     "August",
                              "September", "Oktober",  "November", "Dezember"};
     struct month *h;
-    struct month *p; /* trailing pointer */
+    struct month *p; 
 
-    /* create random order with fisher-yates shuffle */
     for (int i = 0; i < n; ++i) {
         init_order[i] = i + 1;
     }
     srand(time(0));
     for (int i = n - 1; i > 0; --i) {
-        int j = rand() % (i + 1); /* generate random index below i */
-        /* swap a[i] with a[j] */
+        int j = rand() % (i + 1); 
         int tmp = init_order[i];
         init_order[i] = init_order[j];
         init_order[j] = tmp;
     }
 
-    /* create month linked list */
-    h = malloc(sizeof(struct month)); /* first node, gets returned */
-    h->month_number = init_order[0];  /*  */
+
+    h = malloc(sizeof(struct month)); 
+    h->month_number = init_order[0]; 
     h->month_name = month_strings[h->month_number - 1];
-    p = h; /* pointer that goes through list */
+    p = h; 
     for (int i = 1; i < n; ++i) {
         struct month *m = malloc(sizeof(struct month));
-        /* printf("create month %d\n", i); */
         m->month_number = init_order[i];
         m->month_name = month_strings[m->month_number - 1];
-        p->next = m; /* previous node points now to this */
+        p->next = m;
 
-        p = m; /* increment trailing pointer */
+        p = m; 
     }
     p->next = NULL;
     return h;
 }
 
 void free_months(struct month *head) {
-    /* free month linked list */
     struct month *p = head;
     struct month *q = head->next;
     while (q) {
